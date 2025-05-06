@@ -6,7 +6,7 @@ const Login = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        window.location.href = "/App"; 
+        window.location.href = "/"; 
     };
 
     return (
