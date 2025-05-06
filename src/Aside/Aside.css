@@ -1,12 +1,12 @@
 aside{
-    width: 400px;
-    height: 700px;
+    width: 100%;
+    height: 200px;
     background-color: white;
     border: solid 1px #9AAFE8;
     border-radius: 50px;
     color: black;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
 }
