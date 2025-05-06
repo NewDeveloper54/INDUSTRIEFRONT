@@ -5,14 +5,12 @@
 
 main {
     width: 950px;
-    height: 700px;
+    height: 300px;
     
     border-radius: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    
   }
 
 
@@ -25,16 +23,7 @@ main {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
   
   */
-  main.scrollable-content {
-    width: 950px;
-    max-height: 700px; /* ou 80vh */
-    border: none;
-    overflow-y: auto;
-    padding: 1rem;
-    display: flex;
-    justify-content: flex-start; /* pour éviter centrer verticalement */
-    align-items: flex-start;
-  }
+  
   
 
 
