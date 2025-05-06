@@ -1,0 +1,29 @@
+
+
+
+  
+  
+
+.container{
+ display: flex;
+ justify-content: space-around;
+ align-items: center;
+}
+.main{
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    animation: appShow 1s ease-in-out;
+}
+
+@keyframes appShow {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
