@@ -6,7 +6,7 @@ const SignUp = () => {
 
     const handleSignUp = (e) => {
         e.preventDefault();
-        window.location.href = "/App"; // Force aussi un rechargement vers App
+        window.location.href = "/"; // Force aussi un rechargement vers App
     };
 
     return (
