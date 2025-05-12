@@ -1,52 +1,89 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Items.css";
 
 const Taches = () => {
   const [taches, setTaches] = useState([]);
   const [nom, setNom] = useState("");
   const [description, setDescription] = useState("");
-  const [editIndex, setEditIndex] = useState(null);
+  const [editId, setEditId] = useState(null);
   const [erreur, setErreur] = useState("");
 
+  // Charger les tâches depuis le backend
+  useEffect(() => {
+    fetch("http://localhost:5000/api/taches")
+      .then((res) => res.json())
+      .then((data) => setTaches(data))
+      .catch((err) => {
+        console.error("Erreur de chargement :", err);
+        setErreur("Erreur de chargement des tâches");
+      });
+  }, []);
 
   const handleAjouter = () => {
     if (!nom || !description) return;
 
-    if (editIndex === null && taches.length >= 5) {
-      setErreur("Limite de tâches atteinte!");
+    if (editId === null && taches.length >= 5) {
+      setErreur("Limite de tâches atteinte !");
       return;
     }
 
-    const nouvelleTache = { nom, description };
+    const tache = { nom, description };
 
-    if (editIndex !== null) {
-      const updated = [...taches];
-      updated[editIndex] = nouvelleTache;
-      setTaches(updated);
-      setEditIndex(null);
-      setErreur(""); // ici on reinitialise l'erreur
+    if (editId !== null) {
+      // Modification
+      fetch(`http://localhost:5000/api/taches/${editId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(tache),
+      })
+        .then((res) => res.json())
+        .then((updatedTache) => {
+          setTaches((prev) =>
+            prev.map((t) => (t.id === editId ? updatedTache : t))
+          );
+          resetForm();
+        })
+        .catch(() => setErreur("Erreur lors de la mise à jour"));
     } else {
-      setTaches([...taches, nouvelleTache]);
-      setErreur(""); 
+      // Création
+      fetch("http://localhost:5000/api/taches", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(tache),
+      })
+        .then((res) => res.json())
+        .then((newTache) => {
+          setTaches((prev) => [...prev, newTache]);
+          resetForm();
+        })
+        .catch((err) => {
+          setErreur("Erreur lors de l’ajout");
+          console.error("Erreur lors de l’ajout :", err);
+        });
     }
-
-    setNom("");
-    setDescription("");
   };
 
-  const handleSupprimer = (index) => {
-    const updated = [...taches];
-    updated.splice(index, 1);
-    setTaches(updated);
-    setErreur(""); // Enlève le message d'erreur si suppression
+  const handleSupprimer = (id) => {
+    fetch(`http://localhost:5000/api/taches/${id}`, { method: "DELETE" })
+      .then(() => {
+        setTaches((prev) => prev.filter((t) => t.id !== id));
+        setErreur("");
+      })
+      .catch(() => setErreur("Erreur lors de la suppression"));
   };
 
-  const handleModifier = (index) => {
-    const tache = taches[index];
+  const handleModifier = (tache) => {
     setNom(tache.nom);
     setDescription(tache.description);
-    setEditIndex(index);
-    setErreur(""); // Réinitialise l'erreur
+    setEditId(tache.id);
+    setErreur("");
+  };
+
+  const resetForm = () => {
+    setNom("");
+    setDescription("");
+    setEditId(null);
+    setErreur("");
   };
 
   return (
@@ -69,17 +106,16 @@ const Taches = () => {
           className="taches-input"
         />
         <button onClick={handleAjouter} className="taches-button">
-          {editIndex !== null ? "Mettre à jour" : "Ajouter"}
+          {editId !== null ? "Mettre à jour" : "Ajouter"}
         </button>
       </div>
 
-      {/* Message d'erreur */}
       {erreur && <p className="taches-erreur">{erreur}</p>}
 
       <table className="taches-table">
         <thead>
           <tr>
-            <th>Numéro</th>
+            <th>#</th>
             <th>Nom</th>
             <th>Description</th>
             <th>Actions</th>
@@ -88,20 +124,20 @@ const Taches = () => {
         <tbody>
           {taches.length > 0 ? (
             taches.map((tache, index) => (
-              <tr key={index}>
+              <tr key={tache.id}>
                 <td>{index + 1}</td>
                 <td>{tache.nom}</td>
                 <td>{tache.description}</td>
                 <td className="action">
                   <button
                     className="taches-action-button"
-                    onClick={() => handleModifier(index)}
+                    onClick={() => handleModifier(tache)}
                   >
                     Modifier
                   </button>
                   <button
                     className="taches-action-button taches-delete"
-                    onClick={() => handleSupprimer(index)}
+                    onClick={() => handleSupprimer(tache.id)}
                   >
                     Supprimer
                   </button>
@@ -120,5 +156,3 @@ const Taches = () => {
 };
 
 export default Taches;
-
-

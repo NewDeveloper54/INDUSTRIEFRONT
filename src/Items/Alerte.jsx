@@ -2,38 +2,41 @@ import React, { useEffect, useState } from "react";
 import "./Items.css";
 import alertt from "../assets/alert.jpg";
 
+const alertesLocales = [
+  { id: 1, type: "stock", message: "⚠️ Stock faible pour Farine", niveau: "urgent" },
+  { id: 2, type: "info", message: "📦 Nouvel article 'Beurre' ajouté au stock", niveau: "info" },
+  { id: 3, type: "livraison", message: "🚚 Réception prévue aujourd’hui à 15h", niveau: "normal" }
+];
+
 const Alerte = () => {
+  const [alertes, setAlertes] = useState([]);
 
-const [alert, setAlert] =useState({});
+  useEffect(() => {
+    // Ici on simule le fetch avec les données locales
+    const timer = setTimeout(() => {
+      setAlertes(alertesLocales);
+    }, 800); // délai pour simuler un chargement
 
-useEffect(()=>{
-  async function fetchData() {
-    try{
-      const response = await fetch ("http://localhost:5000/api/alertes");
-      const data = await response.json();
-
-      console.log(data);
-      setAlert(data);
-
-    }catch(error){
-      console.log("il y a une erreur: "+error);
-    }
-    
-  }
-  fetchData();
-}, []);
-
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div id="Alerte">
+    <div id="Alerte" className="alerte-container">
       
-<div className="card">
-          <img src={alertt} alt="" />
-        <h1  className="angled-shadow">Alertes et notifications</h1>
+
+      <div className="alerte-list">
+        {alertes.length === 0 ? (
+          <p className="alerte-loading">Chargement des alertes...</p>
+        ) : (
+          
+          alertes.map((alerte) => (
+            <div key={alerte.id} className={`alerte-item ${alerte.niveau}`}>
+              <span className="alerte-type">{alerte.type.toUpperCase()}</span>
+              <p className="alerte-message">{alerte.message}</p>
+            </div>
+          ))
+        )}
       </div>
-
-
-      
     </div>
   );
 };

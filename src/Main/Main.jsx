@@ -17,6 +17,7 @@ const Main = ({showContent}) => {
                 {showContent === "Alerte" && <Alerte/>}
                  
                       </section>
+                      
         </main>
         
         </div>
