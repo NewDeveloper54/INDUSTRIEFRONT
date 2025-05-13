@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Items.css";
 
 const Planning = () => {
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
   const [plannings, setPlannings] = useState([]);
   const [newEvent, setNewEvent] = useState({
     title: "",
@@ -9,7 +14,20 @@ const Planning = () => {
     time: "",
     description: ""
   });
-  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/plannings");
+        const data = await res.json();
+        setPlannings(data);
+      } catch (error) {
+        console.log("Erreur lors du chargement :" + error);
+        setError("Erreur de chargement des plannings");
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,18 +40,38 @@ const Planning = () => {
       return;
     }
 
-    if (newEvent.title && newEvent.date && newEvent.time) {
-      const newId = Date.now();
-      setPlannings([...plannings, { id: newId, ...newEvent }]);
-      setNewEvent({ title: "", date: "", time: "", description: "" });
-      setError(""); 
-    }
+    const planning = { ...newEvent }; // Utilisation de newEvent directement
+
+    fetch("http://localhost:5000/api/plannings", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(planning),
+    })
+      .then((res) => res.json())
+      .then((newPlanning) => {
+        setPlannings((prev) => [...prev, newPlanning]);
+        setNewEvent({
+          title: "",
+          date: "",
+          time: "",
+          description: ""
+        }); // Reset form
+      })
+      .catch((err) => {
+        setError(`Erreur lors de l’ajout: ${err.message}`);
+        console.error("Erreur lors de l’ajout :", err);
+      });
   };
 
   const handleDelete = (id) => {
-    setPlannings(plannings.filter(event => event.id !== id));
-    setError(""); 
-  };
+  fetch(`http://localhost:5000/api/plannings/${id}`, { method: "DELETE" })
+    .then(() => {
+      setPlannings((prev) => prev.filter((p) => p._id !== id)); // Correction ici
+      setError("");
+    })
+    .catch(() => setError("Erreur lors de la suppression"));
+};
+
 
   return (
     <main className="planning-main">
@@ -77,12 +115,12 @@ const Planning = () => {
           <p className="planning-empty">Aucun événement prévu.</p>
         ) : (
           plannings.map((event) => (
-            <div key={event.id} className="planning-card">
+            <div key={event._id} className="planning-card">
               <h2 className="planning-card-title">{event.title}</h2>
               <p><strong>Date :</strong> {event.date}</p>
               <p><strong>Heure :</strong> {event.time}</p>
               <p><strong>Description :</strong> {event.description}</p>
-              <button className="planning-delete-btn" onClick={() => handleDelete(event.id)}>Supprimer</button>
+              <button className="planning-delete-btn" onClick={() => handleDelete(event._id)}>Supprimer</button>
             </div>
           ))
         )}

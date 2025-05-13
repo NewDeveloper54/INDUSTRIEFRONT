@@ -189,7 +189,7 @@ border-radius: 25px;
   
   .taches-table th,
   .taches-table td {
-    border: 1px solid #ccc;
+    border: 1px solid white;
     padding: 0.75rem;
     text-align: left;
   }
@@ -476,3 +476,108 @@ border-radius: 25px;
   background-color: #f9f9f9;
   border-left: 5px solid #ccc;
 }
+
+
+.theme-light .taches-container {
+background-color: white;
+}
+
+.theme-dark .taches-container {
+background-color: #9AAFE8;}
+
+.theme-light .taches-form>button ,.taches-title {
+background-color: #9AAFE8;
+color: white;
+}
+
+.theme-dark .taches-form>button , .taches-title {
+background-color: white;
+color: #9AAFE8;
+}
+
+.theme-light .taches-title {
+background-color: #9AAFE8;
+color: white;
+}
+
+.theme-dark  .taches-title {
+background-color: white;
+color: #9AAFE8;
+}
+
+
+.theme-light .taches-input {
+background-color: white;
+}
+
+.theme-dark  .taches-input {
+background-color: #9AAFE8 ;
+}
+
+.theme-light .taches-input::placeholder {
+  color: #333;
+  background: transparent; /* les placeholders n'ont pas de background */
+}
+
+/* Pour le thème sombre */
+.theme-dark .taches-input::placeholder {
+  color: white;
+}
+
+
+.theme-light  .taches-form::after  {
+background-color: #9AAFE8;}
+
+/* Pour le thème sombre */
+.theme-dark  .taches-form::after, .taches-form::before {
+background-color: white;}
+
+.theme-light    .taches-form::before  {
+background-color: #9AAFE8;}
+
+
+
+
+.theme-light th {
+background-color: #9AAFE8;
+}
+
+.theme-dark  th {
+background-color: white ;
+}
+
+
+.theme-light td {
+color: #9AAFE8;
+}
+
+.theme-dark  td {
+color: white ;
+}
+
+
+.theme-light .taches-table {
+    border: solid 1px white ;
+}
+
+.theme-dark  .taches-table {
+    border: solid 1px white ;
+}
+
+
+
+
+.theme-light  
+  .taches-table td  {
+    border: solid 1px #9AAFE8 ;
+}
+
+.theme-dark
+  .taches-table td {
+    border: solid 1px white ;
+}   
+
+
+
+  
+ 

@@ -85,3 +85,44 @@
     align-items: center;
   }
 
+
+
+
+  /* Thème clair */
+.theme-light {
+  background: linear-gradient(45deg, rgb(47, 53, 164), rgb(138, 185, 205));
+  color: white;
+}
+
+/* Thème sombre */
+.theme-dark {
+  background: linear-gradient(45deg, rgb(255, 255, 255), rgb(228, 219, 219));
+  color: black;
+}
+
+.theme-light .frameNav {
+  background-color: white;
+}
+
+.theme-dark .frameNav {
+  background-color: #9AAFE8;
+}
+
+
+.theme-light .login {
+  background-color: #9AAFE8;
+}
+
+.theme-dark .login {
+  background-color: white;
+}
+
+.theme-light .login>h2 {
+color: white;
+font-weight: bold;
+}
+
+.theme-dark .login>h2 {
+  color: #9AAFE8;
+  font-weight: bold;
+}

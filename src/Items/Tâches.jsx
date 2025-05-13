@@ -7,6 +7,7 @@ const Taches = () => {
   const [description, setDescription] = useState("");
   const [editId, setEditId] = useState(null);
   const [erreur, setErreur] = useState("");
+  const [id, setId] = useState("");
 
   // Charger les tâches depuis le backend
   useEffect(() => {
@@ -39,7 +40,7 @@ const Taches = () => {
         .then((res) => res.json())
         .then((updatedTache) => {
           setTaches((prev) =>
-            prev.map((t) => (t.id === editId ? updatedTache : t))
+            prev.map((t) => (t._id === editId ? updatedTache : t)) // Utiliser _id au lieu de id
           );
           resetForm();
         })
@@ -66,7 +67,7 @@ const Taches = () => {
   const handleSupprimer = (id) => {
     fetch(`http://localhost:5000/api/taches/${id}`, { method: "DELETE" })
       .then(() => {
-        setTaches((prev) => prev.filter((t) => t.id !== id));
+        setTaches((prev) => prev.filter((t) => t._id !== id)); // Utiliser _id au lieu de id
         setErreur("");
       })
       .catch(() => setErreur("Erreur lors de la suppression"));
@@ -75,7 +76,7 @@ const Taches = () => {
   const handleModifier = (tache) => {
     setNom(tache.nom);
     setDescription(tache.description);
-    setEditId(tache.id);
+    setEditId(tache._id); // Utiliser _id au lieu de id
     setErreur("");
   };
 
@@ -118,16 +119,18 @@ const Taches = () => {
             <th>#</th>
             <th>Nom</th>
             <th>Description</th>
+            <th>ID</th> {/* Nouvelle colonne pour l'ID */}
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {taches.length > 0 ? (
             taches.map((tache, index) => (
-              <tr key={tache.id}>
+              <tr key={tache._id}> 
                 <td>{index + 1}</td>
                 <td>{tache.nom}</td>
                 <td>{tache.description}</td>
+                <td>{tache._id}</td> 
                 <td className="action">
                   <button
                     className="taches-action-button"
@@ -137,7 +140,7 @@ const Taches = () => {
                   </button>
                   <button
                     className="taches-action-button taches-delete"
-                    onClick={() => handleSupprimer(tache.id)}
+                    onClick={() => handleSupprimer(tache._id)} 
                   >
                     Supprimer
                   </button>
@@ -146,7 +149,7 @@ const Taches = () => {
             ))
           ) : (
             <tr>
-              <td colSpan="4">Aucune tâche enregistrée</td>
+              <td colSpan="5">Aucune tâche enregistrée</td> {/* Ajuster le colSpan */}
             </tr>
           )}
         </tbody>
