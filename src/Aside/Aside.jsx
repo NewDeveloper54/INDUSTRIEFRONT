@@ -24,12 +24,18 @@ const Aside = ({ onItemClick }) => {
         >
           Planning
         </div>
+
+{/*  
         <div
           onClick={() => handleClick("Stock")}
           className={`item ${activeItem === "Stock" ? "invert" : ""}`}
         >
           Stocks
         </div>
+
+        */}
+
+
         <div
           onClick={() => handleClick("Alerte")}
           className={`item ${activeItem === "Alerte" ? "invert" : ""}`}
