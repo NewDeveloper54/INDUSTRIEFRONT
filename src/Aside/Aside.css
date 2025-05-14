@@ -1,5 +1,5 @@
 aside {
-    width: 1220px;
+    width: 950px;
     height: 100px;
     background-color: rgba(97, 152, 211, 0.742); /* transparent blanc */
     backdrop-filter: blur(10px); 
@@ -18,7 +18,7 @@ aside {
     cursor: pointer;
     color: #9AAFE8;
     height: 65px;
-    width: 250px;
+    width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
