@@ -151,7 +151,7 @@ border-radius: 25px;
     background-color: #9AAFE8;
     position: absolute;
     left: 36.5%;
-    top: 75%;
+    top: 42%;
     transform: translate(-50%,-50%);
     z-index: 10;
   }
@@ -162,7 +162,7 @@ border-radius: 25px;
     background-color: #9AAFE8;
     position: absolute;
     left: 54%;
-    top: 75%;
+    top: 42%;
     transform: translate(-50%,-50%);
     z-index: 10;
   }
