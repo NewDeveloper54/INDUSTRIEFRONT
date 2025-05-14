@@ -11,7 +11,7 @@ const Taches = () => {
 
   // Charger les tâches depuis le backend
   useEffect(() => {
-    fetch("http://localhost:5000/api/taches")
+    fetch("https://industrieback.onrender.com/api/taches")
       .then((res) => res.json())
       .then((data) => setTaches(data))
       .catch((err) => {
@@ -32,7 +32,7 @@ const Taches = () => {
 
     if (editId !== null) {
       // Modification
-      fetch(`http://localhost:5000/api/taches/${editId}`, {
+      fetch(`https://industrieback.onrender.com/api/taches/${editId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(tache),
@@ -47,7 +47,7 @@ const Taches = () => {
         .catch(() => setErreur("Erreur lors de la mise à jour"));
     } else {
       // Création
-      fetch("http://localhost:5000/api/taches", {
+      fetch("https://industrieback.onrender.com/api/taches", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(tache),
@@ -65,7 +65,7 @@ const Taches = () => {
   };
 
   const handleSupprimer = (id) => {
-    fetch(`http://localhost:5000/api/taches/${id}`, { method: "DELETE" })
+    fetch(`https://industrieback.onrender.com/api/taches/${id}`, { method: "DELETE" })
       .then(() => {
         setTaches((prev) => prev.filter((t) => t._id !== id)); // Utiliser _id au lieu de id
         setErreur("");

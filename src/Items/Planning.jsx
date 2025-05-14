@@ -18,7 +18,7 @@ const Planning = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/plannings");
+        const res = await fetch("https://industrieback.onrender.com/api/plannings");
         const data = await res.json();
         setPlannings(data);
       } catch (error) {
@@ -42,7 +42,7 @@ const Planning = () => {
 
     const planning = { ...newEvent }; // Utilisation de newEvent directement
 
-    fetch("http://localhost:5000/api/plannings", {
+    fetch("https://industrieback.onrender.com/api/plannings", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(planning),
@@ -64,7 +64,7 @@ const Planning = () => {
   };
 
   const handleDelete = (id) => {
-  fetch(`http://localhost:5000/api/plannings/${id}`, { method: "DELETE" })
+  fetch(`https://industrieback.onrender.com/api/plannings/${id}`, { method: "DELETE" })
     .then(() => {
       setPlannings((prev) => prev.filter((p) => p._id !== id)); // Correction ici
       setError("");
