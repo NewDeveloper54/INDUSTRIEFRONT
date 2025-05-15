@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false); // Cache le loader après 2 secondes
-    }, 4000);
+    }, 5000);
 
     return () => clearTimeout(timer); // Nettoyage
   }, []);

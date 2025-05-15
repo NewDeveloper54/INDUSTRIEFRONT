@@ -132,6 +132,7 @@ const Taches = () => {
                 <td>{tache.description}</td>
                 <td>{tache._id}</td> 
                 <td className="action">
+                  <div className="td">
                   <button
                     className="taches-action-button"
                     onClick={() => handleModifier(tache)}
@@ -144,6 +145,7 @@ const Taches = () => {
                   >
                     Supprimer
                   </button>
+                  </div>
                 </td>
               </tr>
             ))
