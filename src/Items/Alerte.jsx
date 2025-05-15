@@ -38,7 +38,7 @@ const Dashboard = () => {
 
   if (isLoading) {
     return (
-      <div className="loader" style={{transform:"translateX(-20px)"}}>
+      <div className="loader" style={{transform:"translateX(-10px)"}}>
         <div className="box box-1">
           <div className="side-left"></div>
           <div className="side-right"></div>
