@@ -33,6 +33,18 @@ console.log("il ya eu une erreur :", error);
       }
      }
 
+async function fetchDataAlertes() {
+  try{
+    const res = await fetch ("https://industrieback.onrender.com/api/alertes");
+    const data = await res.json();
+    setNombreAlertes(data.length);
+
+  }catch(error){
+    console.log("erreru :" + error);
+  }
+}
+
+    fetchDataAlertes();
     fetchDataTaches();
     fetchDataPlanning();
     }, 1000);

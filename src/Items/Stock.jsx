@@ -12,7 +12,7 @@ const Alerte = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/alertes");
+        const res = await fetch("https://industrieback.onrender.com/api/alertes");
         const data = await res.json();
         setAlertes(data);
       } catch (error) {
@@ -21,7 +21,7 @@ const Alerte = () => {
       }
     };
 
-    fetchData(); // N'oublie pas d'appeler la fonction
+    fetchData(); 
   }, []);
 
   // Ajouter une alerte
@@ -36,7 +36,7 @@ const Alerte = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/alertes", {
+      const res = await fetch("https://industrieback.onrender.com/api/alertes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(nouvelleAlerte),
@@ -54,7 +54,7 @@ const Alerte = () => {
   // Supprimer une alerte
   const supprimerAlerte = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/alertes/${id}`, {
+      await fetch(`https://industrieback.onrender.com/api/alertes/${id}`, {
         method: "DELETE",
       });
       setAlertes((prev) => prev.filter((a) => a._id !== id));
