@@ -30,7 +30,7 @@ const Aside = ({ onItemClick }) => {
           onClick={() => handleClick("Stock")}
           className={`item ${activeItem === "Stock" ? "invert" : ""}`}
         >
-          Stocks
+          Notifications et alertes
         </div>
 
         
@@ -40,7 +40,7 @@ const Aside = ({ onItemClick }) => {
           onClick={() => handleClick("Alerte")}
           className={`item ${activeItem === "Alerte" ? "invert" : ""}`}
         >
-          Notifications et alertes
+Tableau de bord
         </div>
       </aside>
     </div>

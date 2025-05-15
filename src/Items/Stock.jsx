@@ -1,88 +1,113 @@
 import React, { useState, useEffect } from "react";
-import stockk from "../assets/stock.jpg";
 import "./Items.css";
 
-const donnéesLocales = [
-  { id: 1, nom: "bornes", quantite: 45, seuil: 50 },
-  { id: 2, nom: "fils", quantite: 80, seuil: 30 },
-  { id: 3, nom: "batteries", quantite: 15, seuil: 25 }
-];
+const Alerte = () => {
+  const [alertes, setAlertes] = useState([]);
+  const [message, setMessage] = useState("");
+  const [niveau, setNiveau] = useState("info");
+  const [type, setType] = useState("general");
+  const [error, setError] = useState(null);
 
-const Stock = () => {
-  const [produits, setProduits] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  // Simulation de chargement (sans backend)
+  // Charger les données depuis le backend
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setProduits(donnéesLocales);
-      setLoading(false);
-    }, 1000); // Simulation délai de chargement
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/alertes");
+        const data = await res.json();
+        setAlertes(data);
+      } catch (error) {
+        console.error("Erreur lors du chargement :", error);
+        setError("Erreur de chargement des alertes");
+      }
+    };
 
-    return () => clearTimeout(timer);
+    fetchData(); // N'oublie pas d'appeler la fonction
   }, []);
 
+  // Ajouter une alerte
+  const ajouterAlerte = async () => {
+    if (!message) return;
+
+    const nouvelleAlerte = {
+      message,
+      niveau,
+      type,
+      date: new Date().toISOString(),
+    };
+
+    try {
+      const res = await fetch("http://localhost:5000/api/alertes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(nouvelleAlerte),
+      });
+
+      const newAlerte = await res.json();
+      setAlertes((prev) => [newAlerte, ...prev]);
+      setMessage("");
+    } catch (err) {
+      console.error("Erreur lors de l’ajout :", err);
+      setError("Erreur lors de l’ajout de l’alerte");
+    }
+  };
+
+  // Supprimer une alerte
+  const supprimerAlerte = async (id) => {
+    try {
+      await fetch(`http://localhost:5000/api/alertes/${id}`, {
+        method: "DELETE",
+      });
+      setAlertes((prev) => prev.filter((a) => a._id !== id));
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+    }
+  };
+
   return (
-    <div id="Stock" className="stock-container">
-      <div className="stock-card">
-        <h1 className="stock-title">Stock</h1>
+    <div className="alertes-dashboard">
+      <h2 className="title">📢 Alertes</h2>
 
-        {loading ? (
-          <p className="stock-loading">Chargement...</p>
+      <div className="alerte-form">
+        <input
+          type="text"
+          placeholder="Message de l'alerte..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <select value={niveau} onChange={(e) => setNiveau(e.target.value)}>
+          <option value="info">Info</option>
+          <option value="urgent">Urgent</option>
+        </select>
+        <button onClick={ajouterAlerte}>Ajouter</button>
+      </div>
+
+      {error && <p className="error">{error}</p>}
+
+      <div className="alerte-liste">
+        {alertes.length === 0 ? (
+          <p className="aucune">Aucune alerte pour l'instant.</p>
         ) : (
-          <div className="stock-list">
-            {produits.length === 0 ? (
-              <p>Aucun produit en stock.</p>
-            ) : (
-              <table className="stock-table">
-                <thead>
-                  <tr>
-                    <th>Produit</th>
-                    <th>Quantité</th>
-                    <th>Seuil</th>
-                    <th>Statut</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {produits.map((p) => (
-                    <tr key={p.id}>
-                      <td>{p.nom}</td>
-                      <td>{p.quantite}</td>
-                      <td>{p.seuil}</td>
-                      <td>
-                        <span
-                          className={`badge ${
-                            p.quantite <= p.seuil ? "danger" : "ok"
-                          }`}
-                        >
-                          {p.quantite <= p.seuil
-                            ? "⚠️ Stock bas"
-                            : "✅ OK"}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+          alertes.map((alerte) => (
+            <div key={alerte._id} className={`alerte-carte ${alerte.niveau}`}>
+              <div className="alerte-header">
+                <span className="alerte-type">{alerte.type.toUpperCase()}</span>
+                <span className="alerte-date">
+                  {new Date(alerte.date).toLocaleString()}
+                </span>
+              </div>
+              <p className="alerte-message">{alerte.message}</p>
+              <button
+                onClick={() => supprimerAlerte(alerte._id)}
+                className="supprimer-btn"
+              >
+                ✖ Supprimer
+              </button>
+            </div>
+          ))
         )}
-
-        <hr />
-
-        <div className="stock-features">
-          <h2>➕ Entrée / ➖ Sortie</h2>
-          <p>(À implémenter avec journalisation)</p>
-
-          <h2>📷 Scanner QR Code</h2>
-          <p>(Fonctionnalité mobile à venir)</p>
-
-          <h2>📊 Évolution du stock</h2>
-          <p>(Graphiques à intégrer avec Chart.js ou Recharts)</p>
-        </div>
       </div>
     </div>
   );
 };
 
-export default Stock;
+export default Alerte;

@@ -1,44 +1,67 @@
 import React, { useEffect, useState } from "react";
 import "./Items.css";
-import alertt from "../assets/alert.jpg";
 
-const alertesLocales = [
-  { id: 1, type: "stock", message: "⚠️ Stock faible pour Farine", niveau: "urgent" },
-  { id: 2, type: "info", message: "📦 Nouvel article 'Beurre' ajouté au stock", niveau: "info" },
-  { id: 3, type: "livraison", message: "🚚 Réception prévue aujourd’hui à 15h", niveau: "normal" }
-];
+const Dashboard = () => {
+  const [nombreTaches, setNombreTaches] = useState(0);
+  const [nombrePlannings, setNombrePlannings] = useState(0);
+  const [nombreAlertes, setNombreAlertes] = useState(0);
 
-const Alerte = () => {
-  const [alertes, setAlertes] = useState([]);
+  useEffect(()=>{
 
-  useEffect(() => {
-    // Ici on simule le fetch avec les données locales
-    const timer = setTimeout(() => {
-      setAlertes(alertesLocales);
-    }, 800); // délai pour simuler un chargement
+    setTimeout(()=>{
 
-    return () => clearTimeout(timer);
+      const fetchDataTaches = async()=>{
+      try{
+        const res = await fetch("https://industrieback.onrender.com/api/taches");
+        const data = await res.json();
+        setNombreTaches(data.length);
+
+      }catch(error){
+console.log("il ya eu une erreur :", error);
+      }
+    }
+
+
+     async function fetchDataPlanning(){
+      try{
+        const res= await fetch("https://industrieback.onrender.com/api/plannings");
+        const data = await res.json();
+        setNombrePlannings(data.length);
+
+      }catch(error){
+        console.log("il ya eu une erreur :", error);
+      }
+     }
+
+    fetchDataTaches();
+    fetchDataPlanning();
+    }, 1000);
+
+    
+
   }, []);
 
-  return (
-    <div id="Alerte" className="alerte-container">
-      
+  
 
-      <div className="alerte-list">
-        {alertes.length === 0 ? (
-          <p className="alerte-loading">Chargement des alertes...</p>
-        ) : (
-          
-          alertes.map((alerte) => (
-            <div key={alerte.id} className={`alerte-item ${alerte.niveau}`}>
-              <span className="alerte-type">{alerte.type.toUpperCase()}</span>
-              <p className="alerte-message">{alerte.message}</p>
-            </div>
-          ))
-        )}
+  return (
+    <div className="dashboard-container">
+      <h2 className="dashboard-title">Tableau de bord</h2>
+      <div className="dashboard-cards">
+        <div className="dashboard-card taches">
+          <h3>Tâches</h3>
+          <p>{nombreTaches}</p>
+        </div>
+        <div className="dashboard-card plannings">
+          <h3>Plannings</h3>
+          <p>{nombrePlannings}</p>
+        </div>
+        <div className="dashboard-card alertes">
+          <h3>Alertes</h3>
+          <p>{nombreAlertes}</p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Alerte;
+export default Dashboard;

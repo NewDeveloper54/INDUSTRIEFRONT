@@ -579,5 +579,278 @@ color: white ;
 
 
 
+/* tableau de bord */
+
+.dashboard-container {
+          animation: show 1s ;
+
+  padding: 2rem;
+  background-color: transparent;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.dashboard-cards {
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.dashboard-card {
+
+  background: white;
+  color: #333;
+  border-radius: 1rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.dashboard-card:hover {
+  transform: scale(1.05);
+}
+
+.dashboard-card h3 {
+  font-size: 1.3rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-card p {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Couleurs spécifiques */
+.dashboard-card.taches {
+  border-top: 5px solid #3b82f6;
+}
+
+.dashboard-card.plannings {
+  border-top: 5px solid #10b981;
+}
+
+.dashboard-card.alertes {
+  border-top: 5px solid #ef4444;
+}
+
+
+
+
   
  
+/*   alerte */
+
+
+.alertes-dashboard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.alertes-dashboard h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, #ffffff, #96b2d3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ajout-alerte-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.ajout-alerte-form input,
+.ajout-alerte-form select {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: none;
+  flex: 1 1 200px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.alerte-form>input{
+  background-color: transparent;
+}
+
+.alerte-form>select{
+  background-color: #6076BA;
+  border: solid 1px white;
+  border-radius: 20px;
+}
+
+.alerte-form>button{
+position: relative;
+  left: 30px;}
+
+
+.ajout-alerte-form button {
+  background-color: #00c6ff;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  
+}
+
+.ajout-alerte-form button:hover {
+  background-color: #0072ff;
+}
+
+.alertes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alerte-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 5px solid #00c6ff;
+  border-radius: 12px;
+  padding: 1rem;
+  transition: 0.3s;
+  position: relative;
+  animation: slideIn 0.5s ease;
+}
+
+.alerte-card:hover {
+  transform: scale(1.02);
+}
+
+.alerte-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: #00c6ff;
+}
+
+.alerte-card p {
+  margin: 0.2rem 0;
+}
+
+.alerte-card .alerte-niveau {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.alerte-card button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #ff6b6b;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.alerte-card button:hover {
+  color: #ff1c1c;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+.alerte-carte {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.alerte-carte.info {
+  background-color: #e7f7ff;
+  color: #007bff;
+}
+
+.alerte-carte.urgent {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 5px solid #f44336; /* Bordure rouge à gauche pour l'alerte urgente */
+}
+
+.alerte-carte.urgent::before {
+  content: "⚠️"; /* Point d'exclamation avant le message */
+  margin-right: 5px;
+}
+
+.alerte-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.alerte-type {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: normal;
+}
+
+.alerte-date {
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.supprimer-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+
+
