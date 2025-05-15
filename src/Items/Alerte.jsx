@@ -1,59 +1,67 @@
 import React, { useEffect, useState } from "react";
-import "./Items.css";
+import "./Items.css"; // contient aussi le CSS du loader
 
 const Dashboard = () => {
   const [nombreTaches, setNombreTaches] = useState(0);
   const [nombrePlannings, setNombrePlannings] = useState(0);
   const [nombreAlertes, setNombreAlertes] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); 
 
-  useEffect(()=>{
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [tachesRes, planningsRes, alertesRes] = await Promise.all([
+          fetch("https://industrieback.onrender.com/api/taches"),
+          fetch("https://industrieback.onrender.com/api/plannings"),
+          fetch("https://industrieback.onrender.com/api/alertes"),
+        ]);
 
-    setTimeout(()=>{
+        const [taches, plannings, alertes] = await Promise.all([
+          tachesRes.json(),
+          planningsRes.json(),
+          alertesRes.json(),
+        ]);
 
-      const fetchDataTaches = async()=>{
-      try{
-        const res = await fetch("https://industrieback.onrender.com/api/taches");
-        const data = await res.json();
-        setNombreTaches(data.length);
-
-      }catch(error){
-console.log("il ya eu une erreur :", error);
+        setNombreTaches(taches.length);
+        setNombrePlannings(plannings.length);
+        setNombreAlertes(alertes.length);
+      } catch (error) {
+        console.log("Erreur lors du chargement :", error);
+      } finally {
+        // Attente de 2 secondes avant de désactiver le loader
+        setTimeout(() => setIsLoading(false), 2000);
       }
-    }
+    };
 
-
-     async function fetchDataPlanning(){
-      try{
-        const res= await fetch("https://industrieback.onrender.com/api/plannings");
-        const data = await res.json();
-        setNombrePlannings(data.length);
-
-      }catch(error){
-        console.log("il ya eu une erreur :", error);
-      }
-     }
-
-async function fetchDataAlertes() {
-  try{
-    const res = await fetch ("https://industrieback.onrender.com/api/alertes");
-    const data = await res.json();
-    setNombreAlertes(data.length);
-
-  }catch(error){
-    console.log("erreru :" + error);
-  }
-}
-
-    fetchDataAlertes();
-    fetchDataTaches();
-    fetchDataPlanning();
-    }, 1000);
-
-    
-
+    fetchData();
   }, []);
 
-  
+  if (isLoading) {
+    return (
+      <div className="loader">
+        <div className="box box-1">
+          <div className="side-left"></div>
+          <div className="side-right"></div>
+          <div className="side-top"></div>
+        </div>
+        <div className="box box-2">
+          <div className="side-left"></div>
+          <div className="side-right"></div>
+          <div className="side-top"></div>
+        </div>
+        <div className="box box-3">
+          <div className="side-left"></div>
+          <div className="side-right"></div>
+          <div className="side-top"></div>
+        </div>
+        <div className="box box-4">
+          <div className="side-left"></div>
+          <div className="side-right"></div>
+          <div className="side-top"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-container">
