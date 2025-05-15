@@ -18,14 +18,14 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false); // Cache le loader après 2 secondes
-    }, 2000);
+    }, 4000);
 
     return () => clearTimeout(timer); // Nettoyage
   }, []);
 
   if (isLoading) {
     return (
-<div className="loader" style={{display:"flex", justifyContent:"center", alignItems:"center", height:"430px"}}>
+<div className="loader" style={{display:"flex", justifyContent:"center", alignItems:"center", height:"430px", marginRight:"800px", marginTop:"800px"}}>
         <div className="box box-1">
           <div className="side-left"></div>
           <div className="side-right"></div>
