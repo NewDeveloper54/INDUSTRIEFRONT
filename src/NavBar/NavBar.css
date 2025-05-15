@@ -94,6 +94,8 @@
   color: white;
 }
 
+/*     background: linear-gradient(45deg, rgb(47, 53, 164), rgb(205, 171, 138));  */
+
 /* Thème sombre */
 .theme-dark {
   background: linear-gradient(45deg, rgb(255, 255, 255), rgb(228, 219, 219));
