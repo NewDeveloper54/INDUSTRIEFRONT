@@ -151,7 +151,7 @@ border-radius: 25px;
     background-color: #9AAFE8;
     position: absolute;
     left: 30.2%;
-    top: 49%;
+    top: 45.5%;
     transform: translate(-50%,-50%);
     z-index: 10;
   }
@@ -162,7 +162,7 @@ border-radius: 25px;
     background-color: #9AAFE8;
     position: absolute;
     left: 54.5%;
-    top: 49%;
+    top: 45.5%;
     transform: translate(-50%,-50%);
     z-index: 10;
   }
@@ -672,6 +672,7 @@ color: white ;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   animation: fadeIn 0.6s ease-in-out;
 }
+
 
 .alertes-dashboard h2 {
   text-align: center;
