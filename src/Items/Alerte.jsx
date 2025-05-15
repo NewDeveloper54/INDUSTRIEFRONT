@@ -67,18 +67,62 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <h2 className="dashboard-title">Tableau de bord</h2>
       <div className="dashboard-cards">
-        <div className="dashboard-card taches">
-          <h3>Tâches</h3>
-          <p>{nombreTaches}</p>
-        </div>
-        <div className="dashboard-card plannings">
-          <h3>Plannings</h3>
-          <p>{nombrePlannings}</p>
-        </div>
-        <div className="dashboard-card alertes">
-          <h3>Alertes</h3>
-          <p>{nombreAlertes}</p>
-        </div>
+        
+        
+
+
+
+        <div class="e-card playing">
+  <div class="image"></div>
+  
+  <div class="wave tache"></div>
+  <div class="wave tache"></div>
+  <div class="wave tache"></div>
+  
+
+      <div class="infotop">
+      <h2 className="dashboard-title" style={{color:"white", fontSize:"60px"}}>{nombreTaches}</h2>
+
+  Tâches
+<div class="name">Mes tâches à faire</div>
+  </div>
+</div>
+
+        <div class="e-card playing">
+  <div class="image"></div>
+  
+  <div class="wave planning"></div>
+  <div class="wave planning"></div>
+  <div class="wave planning"></div>
+  
+
+      <div class="infotop">
+      <h2 className="dashboard-title" style={{color:"white", fontSize:"60px"}}>{nombrePlannings}</h2>
+
+  Plannings
+<div class="name">Mes plannings
+</div>
+  </div>
+</div>
+        
+
+<div class="e-card playing">
+  <div class="image"></div>
+  
+  <div class="wave alerte"></div>
+  <div class="wave alerte"></div>
+  <div class="wave alerte"></div>
+  
+
+      <div class="infotop">
+      <h2 className="dashboard-title" style={{color:"white", fontSize:"60px"}}>{nombreAlertes}</h2>
+
+  Alertes
+<div class="name">Mes alertes et notificatins</div>
+  </div>
+</div>
+
+        
       </div>
     </div>
   );
