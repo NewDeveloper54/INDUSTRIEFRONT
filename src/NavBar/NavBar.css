@@ -103,11 +103,13 @@
 }
 
 .theme-light .frameNav {
-  background-color: white;
+  border: none;
+  background-color: transparent;
 }
 
 .theme-dark .frameNav {
-  background-color: #9AAFE8;
+  border: none;
+  background-color: transparent;
 }
 
 

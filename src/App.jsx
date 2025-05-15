@@ -25,7 +25,7 @@ const App = () => {
 
   if (isLoading) {
     return (
-<div className="loader" style={{display:"flex", justifyContent:"center", alignItems:"center", height:"430px", marginRight:"600px", marginTop:"450px"}}>
+<div className="loader" style={{display:"flex", justifyContent:"center", alignItems:"center", height:"430px", marginRight:"600px", marginTop:"520px"}}>
         <div className="box box-1">
           <div className="side-left"></div>
           <div className="side-right"></div>
