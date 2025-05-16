@@ -309,7 +309,7 @@ border-radius: 25px;
   .planning-card {
     padding: 15px;
     border-radius: 15px;
-    background: linear-gradient(90deg, #4a57a3, #3e69ce, #2621c2);
+    background: linear-gradient(45deg, #9AAFE8, #4664b7);
 box-shadow: 0px 15px 15px black;
     
   }
@@ -525,7 +525,7 @@ background-color: white;
 }
 
 .theme-dark .taches-container {
-background: linear-gradient(45deg, #4758AF, #5C7ABB);
+background: linear-gradient(45deg, #9AAFE8, #7c96dd);
 }
 
 .theme-light .taches-form>button ,.taches-title {
@@ -550,11 +550,11 @@ color: #9AAFE8;
 
 
 .theme-light .taches-input {
-background-color: white;
+background-color: transparent;
 }
 
 .theme-dark  .taches-input {
-background-color: #9AAFE8 ;
+background-color: transparent ;
 }
 
 .theme-light .taches-input::placeholder {
