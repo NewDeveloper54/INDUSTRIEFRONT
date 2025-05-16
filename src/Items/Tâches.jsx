@@ -119,7 +119,7 @@ const Taches = () => {
             <th>#</th>
             <th>Nom</th>
             <th>Description</th>
-            <th>ID</th> {/* Nouvelle colonne pour l'ID */}
+            {/*  <th>ID</th> */}
             <th>Actions</th>
           </tr>
         </thead>
@@ -130,7 +130,7 @@ const Taches = () => {
                 <td>{index + 1}</td>
                 <td>{tache.nom}</td>
                 <td>{tache.description}</td>
-                <td>{tache._id}</td> 
+              {/*  <td>{tache._id}</td>  */}  
                 <td className="action">
                   <div className="td">
                   <button

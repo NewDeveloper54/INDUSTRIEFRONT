@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Aside.css";
 
+import planning from "../assets/planning.png";
+
 const Aside = ({ onItemClick }) => {
   const [activeItem, setActiveItem] = useState("");
 
