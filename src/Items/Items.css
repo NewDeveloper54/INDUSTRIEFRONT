@@ -525,7 +525,8 @@ background-color: white;
 }
 
 .theme-dark .taches-container {
-background-color: #9AAFE8;}
+background: linear-gradient(45deg, #4758AF, #5C7ABB);
+}
 
 .theme-light .taches-form>button ,.taches-title {
 background-color: #9AAFE8;
