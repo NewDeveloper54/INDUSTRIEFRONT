@@ -307,23 +307,27 @@ border-radius: 25px;
 
   
   .planning-card {
-    border: 1px solid #9AAFE8;
     padding: 15px;
     border-radius: 15px;
-    background-color: #f5f8ff;
+    background: linear-gradient(90deg, #6670ac, #3e69ce, #2621c2);
   }
   
   .planning-card-title {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: #3b4a6b;
+    color: white;
+    font-weight: bolder;
   }
 
   .planning-card>p{
-    color: black;
+    color: #cccccc;
   }
   .planning-card>h2{
     text-align: center;
+  }
+
+  .strong{
+    color: white;
   }
   
   .planning-delete-btn {

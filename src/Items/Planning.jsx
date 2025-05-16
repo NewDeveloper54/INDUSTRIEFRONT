@@ -147,9 +147,9 @@ const Planning = () => {
           plannings.map((event) => (
             <div key={event._id} className="planning-card">
               <h2 className="planning-card-title">{event.title}</h2>
-              <p><strong>Date :</strong> {event.date}</p>
-              <p><strong>Heure :</strong> {event.time}</p>
-              <p><strong>Description :</strong> {event.description}</p>
+              <p><strong className="strong">Date :</strong> {event.date}</p>
+              <p><strong className="strong">Heure :</strong> {event.time}</p>
+              <p><strong className="strong">Description :</strong> {event.description}</p>
               <div className="planning-card-buttons">
                 <button className="planning-edit-btn" onClick={() => handleEdit(event)}>Modifier</button>
                 <button className="planning-delete-btn" onClick={() => handleDelete(event._id)}>Supprimer</button>
