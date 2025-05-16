@@ -95,7 +95,7 @@ const Alerte = () => {
                   {new Date(alerte.date).toLocaleString()}
                 </span>
               </div>
-              <p className="alerte-message">{alerte.message}</p>
+              <p className="alerte-message" style={{fontWeight:"bold", paddingBottom:"5px"}}>{alerte.message}</p>
               <button
                 onClick={() => supprimerAlerte(alerte._id)}
                 className="supprimer-btn"
