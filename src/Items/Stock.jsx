@@ -111,7 +111,7 @@ const Alerte = () => {
           <option value="info">Info</option>
           <option value="urgent">Urgent</option>
         </select>
-        <button onClick={ajouterAlerte}>Ajouter</button>
+        <button onClick={ajouterAlerte}  style={{cursor:"pointer"}}>Ajouter</button>
       </div>
 
       {error && <p className="error">{error}</p>}
@@ -132,19 +132,23 @@ const Alerte = () => {
               {editionId === alerte._id ? (
                 <div className="edition-form">
                   <input
+                  style={{backgroundColor: editionNiveau === "info" ? "#d1e7dd" : "#f8d7da", color:"rgb(98, 95, 95)"}}
                     type="text"
                     value={editionMessage}
                     onChange={(e) => setEditionMessage(e.target.value)}
                   />
                   <select
+                  style={{backgroundColor
+: editionNiveau === "info" ? "#d1e7dd" : "#f8d7da", marginLeft: "10px", marginRight: "10px"
+                  }}
                     value={editionNiveau}
                     onChange={(e) => setEditionNiveau(e.target.value)}
                   >
                     <option value="info">Info</option>
                     <option value="urgent">Urgent</option>
                   </select>
-                  <button onClick={() => enregistrerModification(alerte._id)}>💾 Enregistrer</button>
-                  <button onClick={annulerEdition} style={{ marginLeft: "5px" }}>❌ Annuler</button>
+                  <button onClick={() => enregistrerModification(alerte._id)}  style={{cursor:"pointer"}}> Enregistrer</button>
+                  <button onClick={annulerEdition} style={{ marginLeft: "5px", cursor:"pointer"}}>❌ Annuler</button>
                 </div>
               ) : (
                 <>

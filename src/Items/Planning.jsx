@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Items.css";
 
 const Planning = () => {
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const [plannings, setPlannings] = useState([]);
   const [newEvent, setNewEvent] = useState({
@@ -14,6 +10,9 @@ const Planning = () => {
     time: "",
     description: ""
   });
+
+  const [editMode, setEditMode] = useState(false);
+  const [editId, setEditId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,44 +33,66 @@ const Planning = () => {
     setNewEvent({ ...newEvent, [name]: value });
   };
 
+  const resetForm = () => {
+    setNewEvent({ title: "", date: "", time: "", description: "" });
+    setEditMode(false);
+    setEditId(null);
+    setError("");
+  };
+
   const handleAddEvent = () => {
-    if (plannings.length >= 5) {
+    if (plannings.length >= 5 && !editMode) {
       setError("Vous ne pouvez pas ajouter plus de 5 événements.");
       return;
     }
 
-    const planning = { ...newEvent }; // Utilisation de newEvent directement
+    const url = editMode
+      ? `https://industrieback.onrender.com/api/plannings/${editId}`
+      : "https://industrieback.onrender.com/api/plannings";
 
-    fetch("https://industrieback.onrender.com/api/plannings", {
-      method: "POST",
+    const method = editMode ? "PUT" : "POST";
+
+    fetch(url, {
+      method,
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify(planning),
+      body: JSON.stringify(newEvent),
     })
       .then((res) => res.json())
-      .then((newPlanning) => {
-        setPlannings((prev) => [...prev, newPlanning]);
-        setNewEvent({
-          title: "",
-          date: "",
-          time: "",
-          description: ""
-        }); // Reset form
+      .then((data) => {
+        if (editMode) {
+          setPlannings((prev) =>
+            prev.map((p) => (p._id === editId ? data : p))
+          );
+        } else {
+          setPlannings((prev) => [...prev, data]);
+        }
+        resetForm();
       })
       .catch((err) => {
-        setError(`Erreur lors de l’ajout: ${err.message}`);
-        console.error("Erreur lors de l’ajout :", err);
+        setError(`Erreur lors de l’enregistrement : ${err.message}`);
       });
   };
 
   const handleDelete = (id) => {
-  fetch(`https://industrieback.onrender.com/api/plannings/${id}`, { method: "DELETE" })
-    .then(() => {
-      setPlannings((prev) => prev.filter((p) => p._id !== id)); // Correction ici
-      setError("");
-    })
-    .catch(() => setError("Erreur lors de la suppression"));
-};
+    fetch(`https://industrieback.onrender.com/api/plannings/${id}`, { method: "DELETE" })
+      .then(() => {
+        setPlannings((prev) => prev.filter((p) => p._id !== id));
+        setError("");
+      })
+      .catch(() => setError("Erreur lors de la suppression"));
+  };
 
+  const handleEdit = (event) => {
+    setNewEvent({
+      title: event.title,
+      date: event.date,
+      time: event.time,
+      description: event.description
+    });
+    setEditId(event._id);
+    setEditMode(true);
+    setError("");
+  };
 
   return (
     <main className="planning-main">
@@ -106,7 +127,16 @@ const Planning = () => {
           value={newEvent.description}
           onChange={handleInputChange}
         />
-        <button onClick={handleAddEvent}>Ajouter</button>
+        <div className="planning-form-buttons">
+          <button onClick={handleAddEvent}>
+            {editMode ? "Mettre à jour" : "Ajouter"}
+          </button>
+          {editMode && (
+            <button onClick={resetForm} className="cancel-button">
+              Annuler
+            </button>
+          )}
+        </div>
         {error && <p className="planning-error">{error}</p>}
       </section>
 
@@ -120,7 +150,10 @@ const Planning = () => {
               <p><strong>Date :</strong> {event.date}</p>
               <p><strong>Heure :</strong> {event.time}</p>
               <p><strong>Description :</strong> {event.description}</p>
-              <button className="planning-delete-btn" onClick={() => handleDelete(event._id)}>Supprimer</button>
+              <div className="planning-card-buttons">
+                <button className="planning-edit-btn" onClick={() => handleEdit(event)}>Modifier</button>
+                <button className="planning-delete-btn" onClick={() => handleDelete(event._id)}>Supprimer</button>
+              </div>
             </div>
           ))
         )}
