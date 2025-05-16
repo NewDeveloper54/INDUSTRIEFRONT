@@ -766,10 +766,32 @@ color: white ;
   background-color: transparent;
 }
 
+
+
+/* bouton modifer dans alerte */
+
+
+.modifier-btn {
+  background-color: transparent;
+  color: rgb(91, 55, 21);
+  margin-right: 8px;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+
+
+
+
 .alerte-form>select{
   background-color: #6076BA;
   border: solid 1px white;
   border-radius: 20px;
+  width: 100px;
+  height: 35px;
 }
 
 .alerte-form>button{

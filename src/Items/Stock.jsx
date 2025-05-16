@@ -7,8 +7,10 @@ const Alerte = () => {
   const [niveau, setNiveau] = useState("info");
   const [type, setType] = useState("general");
   const [error, setError] = useState(null);
+  const [editionId, setEditionId] = useState(null);
+  const [editionMessage, setEditionMessage] = useState("");
+  const [editionNiveau, setEditionNiveau] = useState("");
 
-  // Charger les données depuis le backend
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,10 +23,9 @@ const Alerte = () => {
       }
     };
 
-    fetchData(); 
+    fetchData();
   }, []);
 
-  // Ajouter une alerte
   const ajouterAlerte = async () => {
     if (!message) return;
 
@@ -51,7 +52,6 @@ const Alerte = () => {
     }
   };
 
-  // Supprimer une alerte
   const supprimerAlerte = async (id) => {
     try {
       await fetch(`https://industrieback.onrender.com/api/alertes/${id}`, {
@@ -60,6 +60,39 @@ const Alerte = () => {
       setAlertes((prev) => prev.filter((a) => a._id !== id));
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
+    }
+  };
+
+  const activerEdition = (alerte) => {
+    setEditionId(alerte._id);
+    setEditionMessage(alerte.message);
+    setEditionNiveau(alerte.niveau);
+  };
+
+  const annulerEdition = () => {
+    setEditionId(null);
+    setEditionMessage("");
+    setEditionNiveau("");
+  };
+
+  const enregistrerModification = async (id) => {
+    try {
+      const res = await fetch(`https://industrieback.onrender.com/api/alertes/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: editionMessage, niveau: editionNiveau }),
+      });
+
+      const updatedAlerte = await res.json();
+
+      setAlertes((prev) =>
+        prev.map((a) => (a._id === id ? { ...a, ...updatedAlerte } : a))
+      );
+
+      annulerEdition();
+    } catch (error) {
+      console.error("Erreur lors de la modification :", error);
+      setError("Erreur lors de la modification");
     }
   };
 
@@ -95,13 +128,38 @@ const Alerte = () => {
                   {new Date(alerte.date).toLocaleString()}
                 </span>
               </div>
-              <p className="alerte-message" style={{fontWeight:"bold", paddingBottom:"5px"}}>{alerte.message}</p>
-              <button
-                onClick={() => supprimerAlerte(alerte._id)}
-                className="supprimer-btn"
-              >
-                ✖ Supprimer
-              </button>
+
+              {editionId === alerte._id ? (
+                <div className="edition-form">
+                  <input
+                    type="text"
+                    value={editionMessage}
+                    onChange={(e) => setEditionMessage(e.target.value)}
+                  />
+                  <select
+                    value={editionNiveau}
+                    onChange={(e) => setEditionNiveau(e.target.value)}
+                  >
+                    <option value="info">Info</option>
+                    <option value="urgent">Urgent</option>
+                  </select>
+                  <button onClick={() => enregistrerModification(alerte._id)}>💾 Enregistrer</button>
+                  <button onClick={annulerEdition} style={{ marginLeft: "5px" }}>❌ Annuler</button>
+                </div>
+              ) : (
+                <>
+                  <p className="alerte-message" style={{ fontWeight: "bold", paddingBottom: "5px" }}>
+                    {alerte.message}
+                  </p>
+                  <button onClick={() => activerEdition(alerte)} className="modifier-btn">✏ Modifier</button>
+                  <button
+                    onClick={() => supprimerAlerte(alerte._id)}
+                    className="supprimer-btn"
+                  >
+                    ✖ Supprimer
+                  </button>
+                </>
+              )}
             </div>
           ))
         )}
