@@ -1,42 +1,102 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSignUp = (e) => {
-        e.preventDefault();
-        navigate("/login");
-    };
+  const handleSignUp = async (e) => {
+    e.preventDefault();
 
-    return (
-        <div id="SignUp">
-            <div className="containerLoginSignup">
-                <h1 className="angled-shadowL">Signup</h1>
+    if (password !== confirmPassword) {
+      alert("Les mots de passe ne correspondent pas.");
+      return;
+    }
 
-                <div className="line one"></div>
-                <div className="line two"></div>
+    const res = await fetch("http://localhost:8080/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nom, prenom, email, password }),
+    });
 
-                <input type="text" placeholder="Full Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <input type="password" placeholder="Confirm password" />
+    if (res.ok) {
+      alert("Compte créé avec succès !");
+      navigate("/login");
+    } else if (res.status === 409) {
+      alert("Email déjà utilisé.");
+    } else {
+      alert("Erreur lors de l'inscription.");
+    }
+  };
 
-                <div style={{ width: "65%", display: "flex", justifyContent: "space-around", alignItems: "center" }}>
-                    {/* Bouton qui redirige vers /login */}
-                    <button className="logBtn2" onClick={handleSignUp}>
-                        SignUp
-                    </button>
+  return (
+  <div id="SignUp">
+    <div className="containerLoginSignup">
+      <h1 className="angled-shadowL">Signup</h1>
 
-                    {/* Lien pour retourner vers Login sans reload */}
-                    <Link to="/login">
-                        <p className="pp">Already have an account? Login!</p>
-                    </Link>
-                </div>
-            </div>
+      <form onSubmit={handleSignUp}>
+        <input
+          type="text"
+          placeholder="Nom"
+          value={nom}
+          onChange={(e) => setNom(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Prénom"
+          value={prenom}
+          onChange={(e) => setPrenom(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Confirm password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+
+        <div
+          style={{
+            width: "65%",
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+          }}
+        >
+          <button className="logBtn2" type="submit">
+            SignUp
+          </button>
+
+          <Link to="/login">
+            <p className="pp">Already have an account? Login!</p>
+          </Link>
         </div>
-    );
+      </form>
+    </div>
+  </div>
+);
+
 };
 
 export default SignUp;

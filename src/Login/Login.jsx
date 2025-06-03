@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Ici tu peux ajouter ta logique d'authentification réelle
+    const res = await fetch("http://localhost:8080/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-    onLogin(); // Informe App que l'utilisateur est connecté
-    navigate("/"); // Redirige vers la page principale
+    if (res.ok) {
+      // Optionnel : récupérer le token ou données utilisateur
+      // const data = await res.json();
+
+      onLogin(); // informe que l'utilisateur est connecté
+      navigate("/"); // redirige vers la page d'accueil
+    } else {
+      alert("Login failed !");
+    }
   };
 
   return (
@@ -19,18 +32,39 @@ const Login = ({ onLogin }) => {
       <div className="containerLogin">
         <h1 className="angled-shadowL">Login</h1>
 
-        <input type="text" placeholder="Username" />
-        <input type="password" placeholder="Password" />
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <div style={{ width: "65%", display: "flex", justifyContent: "space-around", alignItems: "center" }}>
-          <button className="logBtn1" onClick={handleLogin}>
-            Login
-          </button>
+          <div
+            style={{
+              width: "65%",
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <button className="logBtn1" type="submit">
+              Login
+            </button>
 
-          <Link to="/signup">
-            <p className="pp">Don't have an account? Sign up!</p>
-          </Link>
-        </div>
+            <Link to="/signup">
+              <p className="pp">Don't have an account? Sign up!</p>
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
   );
