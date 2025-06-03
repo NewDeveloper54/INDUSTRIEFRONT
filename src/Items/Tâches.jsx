@@ -67,7 +67,7 @@ const Taches = () => {
   const handleSupprimer = (id) => {
     fetch(`https://industrieback.onrender.com/api/taches/${id}`, { method: "DELETE" })
       .then(() => {
-        setTaches((prev) => prev.filter((t) => t._id !== id)); // Utiliser _id au lieu de id
+        setTaches((prev) => prev.filter((t) => t._id !== id)); 
         setErreur("");
       })
       .catch(() => setErreur("Erreur lors de la suppression"));
@@ -76,9 +76,10 @@ const Taches = () => {
   const handleModifier = (tache) => {
     setNom(tache.nom);
     setDescription(tache.description);
-    setEditId(tache._id); // Utiliser _id au lieu de id
+    setEditId(tache._id); 
     setErreur("");
   };
+  // Utiliser _id au lieu de id
 
   const resetForm = () => {
     setNom("");

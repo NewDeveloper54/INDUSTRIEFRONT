@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "./NavBar/NavBar";
 import Aside from "./Aside/Aside";
 import Main from "./Main/Main";
@@ -9,43 +9,32 @@ import "./App.css";
 
 const App = () => {
   const [showContent, setShowContent] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // État pour le loader
+  const [isLoading, setIsLoading] = useState(false); // Loader déclenché après login
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // État de connexion
 
   const handleItemClick = (item) => {
     setShowContent(item);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false); // Cache le loader après 2 secondes
-    }, 5000);
-
-    return () => clearTimeout(timer); // Nettoyage
-  }, []);
+  const handleLogin = () => {
+    setIsLoading(true);   // Affiche loader
+    // Simule un délai de chargement (ex: 2 sec)
+    setTimeout(() => {
+      setIsLoading(false); // Cache loader
+      setIsLoggedIn(true); // Passe à la page principale
+    }, 3000);
+  };
 
   if (isLoading) {
     return (
-<div className="loader" style={{display:"flex", justifyContent:"center", alignItems:"center", height:"430px", marginRight:"600px", marginTop:"520px"}}>
-        <div className="box box-1">
-          <div className="side-left"></div>
-          <div className="side-right"></div>
-          <div className="side-top"></div>
-        </div>
-        <div className="box box-2">
-          <div className="side-left"></div>
-          <div className="side-right"></div>
-          <div className="side-top"></div>
-        </div>
-        <div className="box box-3">
-          <div className="side-left"></div>
-          <div className="side-right"></div>
-          <div className="side-top"></div>
-        </div>
-        <div className="box box-4">
-          <div className="side-left"></div>
-          <div className="side-right"></div>
-          <div className="side-top"></div>
-        </div>
+      <div className="loader" style={{
+        display: "flex", justifyContent: "center", alignItems: "center",
+        height: "100vh"
+      }}>
+        <div className="box box-1"><div className="side-left" /><div className="side-right" /><div className="side-top" /></div>
+        <div className="box box-2"><div className="side-left" /><div className="side-right" /><div className="side-top" /></div>
+        <div className="box box-3"><div className="side-left" /><div className="side-right" /><div className="side-top" /></div>
+        <div className="box box-4"><div className="side-left" /><div className="side-right" /><div className="side-top" /></div>
       </div>
     );
   }
@@ -54,18 +43,28 @@ const App = () => {
     <Router>
       <div className="main">
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route
+            path="/login"
+            element={<Login onLogin={handleLogin} />}
+          />
+          <Route
+            path="/signup"
+            element={<SignUp />}
+          />
           <Route
             path="*"
             element={
-              <>
-                <NavBar />
-                <div className="container">
-                  <Aside onItemClick={handleItemClick} />
-                  <Main showContent={showContent} />
-                </div>
-              </>
+              isLoggedIn ? (
+                <>
+                  <NavBar />
+                  <div className="container">
+                    <Aside onItemClick={handleItemClick} />
+                    <Main showContent={showContent} />
+                  </div>
+                </>
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
         </Routes>

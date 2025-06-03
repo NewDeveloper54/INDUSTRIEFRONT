@@ -81,6 +81,8 @@ const Dashboard = () => {
   
 
       <div class="infotop">
+
+
       <h2 className="dashboard-title" style={{color:"white", fontSize:"60px"}}>{nombreTaches}</h2>
 
   Tâches
