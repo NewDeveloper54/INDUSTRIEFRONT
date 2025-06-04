@@ -88,7 +88,7 @@ input{
     border-radius: 10px;
     position: absolute; /* Positionnement absolu */
     background-color: var(--main-color); /* Couleur de la ligne */
-    left: 35%; /* Centrer horizontalement */
+    left: 45%; /* Centrer horizontalement */
     transform: translateX(-50%); /* Centrer parfaitement */
 }
 
