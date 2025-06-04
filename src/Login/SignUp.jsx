@@ -18,7 +18,7 @@ const SignUp = () => {
       return;
     }
 
-    const res = await fetch("http://localhost:8080/api/auth/signup", {
+    const res = await fetch("https://magnificent-manifestation-production.up.railway.app/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nom, prenom, email, password }),
