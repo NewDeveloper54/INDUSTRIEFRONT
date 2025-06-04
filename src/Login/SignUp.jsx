@@ -82,7 +82,8 @@ const SignUp = () => {
             display: "flex",
             justifyContent: "space-around",
             alignItems: "center",
-            marginTop:"50px"
+            marginTop:"50px",
+            marginLeft:"-50px"
           }}
         >
           <button className="logBtn2" type="submit">
