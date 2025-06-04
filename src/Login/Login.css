@@ -88,7 +88,7 @@ input{
     border-radius: 10px;
     position: absolute; /* Positionnement absolu */
     background-color: var(--main-color); /* Couleur de la ligne */
-    left: 50%; /* Centrer horizontalement */
+    left: 30%; /* Centrer horizontalement */
     transform: translateX(-50%); /* Centrer parfaitement */
 }
 
@@ -136,11 +136,11 @@ input{
 
 
 .containerLogin::before {
-    top: 43%; /* Place la ligne en haut du conteneur */
+    top: 53%; /* Place la ligne en haut du conteneur */
 }
 
 .containerLogin::after {
-    top: 66%; /* Place la ligne en bas du conteneur */
+    top: 65%; /* Place la ligne en bas du conteneur */
     height: 2px;
 }
 
