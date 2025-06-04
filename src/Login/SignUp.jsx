@@ -28,9 +28,9 @@ const SignUp = () => {
       alert("Compte créé avec succès !");
       navigate("/login");
     } else if (res.status === 409) {
-      alert("Email déjà utilisé.");
+      alert("L'email déjà utilisé.");
     } else {
-      alert("Erreur lors de l'inscription.");
+      alert("il y a une erreur lors de l'inscription.");
     }
   };
 
@@ -78,10 +78,11 @@ const SignUp = () => {
 
         <div
           style={{
-            width: "65%",
+            width: "350px",
             display: "flex",
             justifyContent: "space-around",
             alignItems: "center",
+            marginTop:"50px"
           }}
         >
           <button className="logBtn2" type="submit">
