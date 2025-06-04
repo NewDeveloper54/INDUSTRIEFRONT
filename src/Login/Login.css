@@ -88,9 +88,11 @@ input{
     border-radius: 10px;
     position: absolute; /* Positionnement absolu */
     background-color: var(--main-color); /* Couleur de la ligne */
-    left: 25%; /* Centrer horizontalement */
+    left: 35%; /* Centrer horizontalement */
     transform: translateX(-50%); /* Centrer parfaitement */
 }
+
+
 
 .containerLoginSignup::before,
 .containerLoginSignup::after {
@@ -136,17 +138,25 @@ input{
 
 
 .containerLogin::before {
-    top: 53%; /* Place la ligne en haut du conteneur */
+    top: 49%;
+        height: 2px;
+ /* Place la ligne en haut du conteneur */
 }
 
 .containerLogin::after {
-    top: 65%; /* Place la ligne en bas du conteneur */
+    top: 59%; /* Place la ligne en bas du conteneur */
     height: 2px;
+}
+
+.inputs{
+    margin-top: -80px;
+    margin-left: 50px;
 }
 
 .containerLogin>h1{
     color: var(--main-color);
     font-size: 30px;
+
 }
 .containerLoginSignup>h1{
     color: var(--main-color);

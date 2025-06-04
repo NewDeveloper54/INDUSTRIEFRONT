@@ -32,8 +32,10 @@ const Login = ({ onLogin }) => {
       <div className="containerLogin">
         <h1 className="angled-shadowL">Login</h1>
 
-        <form onSubmit={handleLogin}>
-          <input
+        <form className="LoginForm" onSubmit={handleLogin}>
+            <div className="inputs">
+
+<input
             type="email"
             placeholder="Email"
             value={email}
@@ -47,6 +49,9 @@ const Login = ({ onLogin }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+
+            </div>
+          
 
           <div
             style={{
