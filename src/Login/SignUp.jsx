@@ -39,7 +39,7 @@ const SignUp = () => {
     <div className="containerLoginSignup">
       <h1 className="angled-shadowL">Signup</h1>
 
-      <form onSubmit={handleSignUp}>
+      <form className="SIgnupForm" onSubmit={handleSignUp}>
         <input
           type="text"
           placeholder="Nom"
@@ -94,6 +94,9 @@ const SignUp = () => {
           </Link>
         </div>
       </form>
+      <div className="line yiwen"></div>
+      <div className="line sin"></div>
+      <div className="line tlata"></div>
     </div>
   </div>
 );

@@ -65,6 +65,25 @@
     }
 }
 
+.line{
+    position: absolute;
+    width: 60%;
+    height: 2px;
+    background-color: var(--main-color);
+}
+.yiwen{
+    top: 53%;
+    left: 15%;
+}
+.sin{
+    top: 63%;
+    left: 15%;
+}
+.tlata{
+    top: 73%;
+    left: 15%;
+}
+
 input:focus {
     outline: none; /* Enlève la bordure de focus (la bordure noire) */
     box-shadow: none; /* Enlève l'ombre qui peut apparaître lors du focus */
@@ -93,6 +112,10 @@ input{
 }
 
 
+.SIgnupForm{
+    margin-left: 20%;
+}
+
 
 .containerLoginSignup::before,
 .containerLoginSignup::after {
@@ -102,16 +125,16 @@ input{
     border-radius: 10px;
     position: absolute; /* Positionnement absolu */
     background-color: var(--main-color); /* Couleur de la ligne */
-    left: 50%; /* Centrer horizontalement */
+    left: 45%; /* Centrer horizontalement */
     transform: translateX(-50%); /* Centrer parfaitement */
 }
 .containerLoginSignup::before {
-    top: 62%;
+    top: 33%;
     height: 1.8px; /* Place la ligne en haut du conteneur */
 }
 
 .containerLoginSignup::after {
-    top: 79%; /* Place la ligne en bas du conteneur */
+    top: 43%; /* Place la ligne en bas du conteneur */
     height: 2px;
 }
 
