@@ -54,7 +54,7 @@ const Login = ({ onLogin }) => {
               display: "flex",
               justifyContent: "space-around",
               alignItems: "center",
-              marginTop: "20px",
+              marginTop: "50px",
             }}
           >
             <button className="logBtn1" type="submit">
