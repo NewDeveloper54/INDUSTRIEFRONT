@@ -73,15 +73,15 @@
 }
 .yiwen{
     top: 53%;
-    left: 15%;
+    left: 20%;
 }
 .sin{
     top: 63%;
-    left: 15%;
+    left: 20%;
 }
 .tlata{
     top: 73%;
-    left: 15%;
+    left: 20%;
 }
 
 input:focus {
@@ -125,7 +125,7 @@ input{
     border-radius: 10px;
     position: absolute; /* Positionnement absolu */
     background-color: var(--main-color); /* Couleur de la ligne */
-    left: 45%; /* Centrer horizontalement */
+    left: 50%; /* Centrer horizontalement */
     transform: translateX(-50%); /* Centrer parfaitement */
 }
 .containerLoginSignup::before {
