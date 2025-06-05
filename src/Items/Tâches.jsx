@@ -64,6 +64,9 @@ const Taches = () => {
     }
   };
 
+      // ici pour les fetch tu chnagera l'url par celle de ton backend, met ca dans ton backend http://localhost:5000/api/taches pour les fetch puis qund ca marche tu mettera sur render pour le mettre enligne 
+
+
   const handleSupprimer = (id) => {
     fetch(`https://industrieback.onrender.com/api/taches/${id}`, { method: "DELETE" })
       .then(() => {

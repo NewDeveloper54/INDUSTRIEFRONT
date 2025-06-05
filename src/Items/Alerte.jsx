@@ -7,6 +7,10 @@ const Dashboard = () => {
   const [nombreAlertes, setNombreAlertes] = useState(0);
   const [isLoading, setIsLoading] = useState(true); 
 
+
+  //meme icic enfaite tu remplace https://industrieback.onrender.com   par http://localhost:5000 pour les fetch, puis quand ca marche tu mettras le lien de render pour mettre en ligne
+
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

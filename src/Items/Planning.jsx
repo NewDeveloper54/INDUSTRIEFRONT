@@ -15,6 +15,8 @@ const Planning = () => {
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
 
+  // meme chose ici, remplace tt le lien dans fetch par http://localhost:5000/api/plannings
+
   useEffect(() => {
     const fetchData = async () => {
       try {

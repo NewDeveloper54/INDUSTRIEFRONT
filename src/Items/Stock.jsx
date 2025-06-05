@@ -36,6 +36,9 @@ const Alerte = () => {
       date: new Date().toISOString(),
     };
 
+          // ici pour les fetch tu chnagera l'url par celle de ton backend, met ca dans ton backend http://localhost:5000/api/alertes pour les fetch puis qund ca marche tu mettera sur render pour le mettre enligne 
+
+
     try {
       const res = await fetch("https://industrieback.onrender.com/api/alertes", {
         method: "POST",

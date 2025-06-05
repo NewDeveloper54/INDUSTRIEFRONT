@@ -17,6 +17,7 @@ const SignUp = () => {
       alert("Les mots de passe ne correspondent pas.");
       return;
     }
+    // ici pour les fetch tu chnagera l'url par celle de ton backend, met ca dans ton backend http://localhost:8080 pour les fetch puis qund ca marche tu mettera sur render 
 
     const res = await fetch("https://magnificent-manifestation-production.up.railway.app/api/auth/signup", {
       method: "POST",
