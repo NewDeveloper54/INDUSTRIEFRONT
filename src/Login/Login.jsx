@@ -10,7 +10,7 @@ const Login = ({ onLogin }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // ici pour les fetch tu chnagera l'url par celle de ton backend, met ca dans ton backend http://localhost:8080 pour les fetch puis qund ca marche tu mettera sur render 
+    // ici pour les fetch tu chnagera l'url par celle de ton backend, remplace https://magnificent-manifestation-production.up.railway.app par  http://localhost:8080 pour les fetch puis qund ca marche tu mettera sur render 
 
     const res = await fetch("https://magnificent-manifestation-production.up.railway.app/api/auth/login", {
       method: "POST",
